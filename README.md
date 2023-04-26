@@ -51,6 +51,7 @@ cd /srv/shiny-server/lumsdlapp
 The folder `lumsdlapp` contains the following:
 
 - `R` &#8594; contains the neccessay dependancies for the app
+- `app.R` &#8594; contains the R-code for the shiny app. Any changes to the app can be done through here and would dynamically render if the app is deployed live.
 - `cookies.csv` &#8594; Monitors the cookie assignment of unique users (see **app.R** for more details)
 - `script.sql` &#8594; Contains the sql script from which the DB reads from
 - `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. 
@@ -92,8 +93,38 @@ sudo systemctl status shiny-server
 ```
 ![Code_MPipjdsyMa](https://user-images.githubusercontent.com/122668359/234616014-010cdddc-8607-4ac3-95f5-4ccb871dd463.png)
 
-If you see the word `active` in bold then that means the server is listening on the specified port number. On the other hand `inactive` in bold, would mean the opposite and troubleshooting is required.
+If you see the word `active` in bold then that means the server is listening on the specified port number. On the other hand `inactive` in bold, would mean the opposite and troubleshooting is required. You might want to check the following:
+
+- Check whether you service is in fact being listened to by the server. You can do this by running the command `sudo lsof -i:port_number`. The followins shows a sample output for port 80.
+```
+sudo lsof -i:80
+```
+![Code_j03sCptnf7](https://user-images.githubusercontent.com/122668359/234619441-c881be5d-50ca-4ab2-adeb-0cc51a4083fb.png)
+
+The figure is showing some service by the name of "apache2" is being listened to by the server at port 80. If it does not match with your expectations, you might want to contact the deployment team for clarification.
+
+- Check the shiny server logs to see any discrepencies in the starting/stopping etc of the server. Do this by running the command `journalctl -u shiny-server`. 
+
+**Note:** The latter command allows you to view the system journal, which contains logs for all services running on your system, including Shiny Server, and hence you may not have admin rights for it. 
 
 
+## Logs 
+In case the app after deployment is showing some issues, it would help immensely if you were to check the logs. Recall from the configuaration file that the logs were stored in  `var/log/shiny-server`. That can be done by the following command:
 
+```
+# Go to specified directory
+cd /var/log/shiny-server
+
+# Check the contents of the directory
+ls
+# Sample output: lumsdlapp-shiny-20230426-102617-45783.log
+
+# Open log
+sudo nano lumsdlapp-shiny-20230426-102617-45783.log 
+```
+
+Once you run this, you will see the all familiar output you get if you run any shiny app locally in R terminal. Here, you can troubleshoot any issue and resolve it accordingly.
+
+## Making Changes
+It is highly recommended that you first create a copy of the **app.R**. Make changes if you want to and run it locally in R terminal (if you have R installed in the server machine) or R studio. Here you can troubleshoot more easily since the output window is in front and you do not have to check the logs. Once you have done that and it is error-free, you can go ahead and deploy the app on your server following the key steps mentioned here. 
 
