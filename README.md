@@ -44,8 +44,8 @@ The folder `lumsdlapp` contains the following:
 - `cookies.csv` \rightarrow Monitors the cookie assignment of unique users (see **app.R** for more details)
 - `dlappDB` \rightarrow The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
   - *UserID* (Primary Key)
-  - *Gender* (Responses $\in [Male, Female, Other]$)
-  - *Education_Level* (Responses $\in [Primary School (till Grade 5), Secondary School (from Grade 6 to 12), Matric, Intermediate, Bachelors, Masters, Above Masters]$)
+  - *Gender* (Responses $ \in $ [Male, Female, Other])
+  - *Education_Level* (Responses $\in$ [Primary School (till Grade 5), Secondary School (from Grade 6 to 12), Matric, Intermediate, Bachelors, Masters, Above Masters])
   - *term_pdf* (Responses $\in [1, 5]$)
   - *term_internet* (Responses $\in [1, 5]$)
   - *term_browser* (Responses $\in [1, 5]$)
