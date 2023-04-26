@@ -37,13 +37,14 @@ Once you have installed *shiny server (visit https://posit.co/products/open-sour
 ```
 # Access the configuration file in the etc/shiny-server directory
 sudo nano /etc/shiny-server/shiny-server.conf
-
 ```
+![Code_cdJ7IY1htO](https://user-images.githubusercontent.com/122668359/234613218-757f00a4-ee52-46dc-ae68-e03443582316.png)
+
+Except from the *listen - port_number* option, the rest is pretty much default. This shows that the folder directory `/srv/shiny-server/` will have the shiny app and the logs of the shiny app will be stored in the directory `var/log/shiny-server
+
 ## Location in the server
 
 From the root, to access the main folder visit:
-![Code_gKnr6UMqK3](https://user-images.githubusercontent.com/122668359/234612836-f1bd111d-8d74-4a52-8968-a446955921b3.png)
-
 ```
 cd /srv/shiny-server/lumsdlapp
 ```
