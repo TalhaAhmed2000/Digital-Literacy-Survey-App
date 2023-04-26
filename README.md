@@ -93,7 +93,7 @@ sudo systemctl status shiny-server
 ```
 ![Code_MPipjdsyMa](https://user-images.githubusercontent.com/122668359/234616014-010cdddc-8607-4ac3-95f5-4ccb871dd463.png)
 
-If you see the word `active` in bold then that means the server is listening on the specified port number. On the other hand `inactive` in bold, would mean the opposite and troubleshooting is required. You might want to check the following:
+If you see the word `active` in bold then that means the server is listening on the specified port number. On the other hand `inactive` in bold, would mean the opposite and troubleshooting is required. In that case, you might want to check the following:
 
 - Check whether you service is in fact being listened to by the server. You can do this by running the command `sudo lsof -i:port_number`. The followins shows a sample output for port 80.
 ```
