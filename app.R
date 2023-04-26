@@ -1,3 +1,6 @@
+
+# Import Relevant Libraries
+
 library(RSQLite)
 library(shiny)
 library(data.table)
@@ -14,17 +17,25 @@ library(svDialogs)
 library(shinyalert)
 library(brochure)
 
+# Initialize some variables that will come in handy later
 
 retry <- FALSE
 value_new <- 0
 value_old <- 0
+
+# Read model (For more details refer to https://github.com/nsgLUMS/predict_DigitalLiteracy)
 model <- readRDS("rf_model.rds")
+
+# Connect to SQlite Database
 db_path <- "dlappDB"
 mydb <- dbConnect(RSQLite::SQLite(), dbname = db_path)
 
+# Get initial count of rows of the DB
 ID <- dbGetQuery(mydb, 'SELECT COUNT(*) FROM dlappDB')
 
-# Creating a navlink
+# Creating a navlink for navigating back and forth through the webpages. For more details on how we made use of the "brochure" API, 
+# visit https://github.com/ColinFay/brochure/blob/main/README.md
+
 nav_links <- tags$ul(
   tags$li(
     tags$a(href = "/", "Home"),
@@ -37,11 +48,12 @@ nav_links <- tags$ul(
   ),
 )
 
-
+# Home Page 
 Home <- function() {
   page(
     href = "/",
     
+    # ui component
     ui <- fluidPage(
       useShinyjs(),
       tags$head(
@@ -139,6 +151,7 @@ Home <- function() {
         text-align: justify;
       }"
         )),
+      # Include div tags for questions, image, and hyperlinks
         tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap")
       ),
       img(class = "blob-img",src = "https://hunbalsohail.github.io/media/maaz-blob.png"),
@@ -147,23 +160,25 @@ Home <- function() {
           h1(class = "main-title", "How Digitally Literate are you?"),
           div (class = "img-spacer"),
           p(class = "main-text", "A small survey consisting of seven questions designed to predict your Digital Literacy Score (between 0 and 1)"),
-          # textInput("textbox", "Enter your introduction:", ""),
           actionButton("go_button", label = "Continue", class = "main-button"),
           tags$div(id = "dialog", class = "neon-text", "Redirecting..."),
           br(), br(),
           tags$div(id = 'hyper', class = "neon-text", "For more information regarding our research and model:"),
           tags$a('Link to the Code.||', href = 'https://github.com/nsgLUMS/predict_DigitalLiteracy', class = 'neon-text'),
-          # div('and'),
           tags$a('Link to Our Research Paper.', href = 'https://www.dropbox.com/s/n3lg5cs1pq7sqtq/RR_DevEng_Digital_Literacy_Measures_Paper_2022.pdf?dl=0', class = 'neon-text')
       )
       
     ),
+    
+    # server component
     server <- function(input, output, session) {
-      # hide the dialog box initially
-      print("Hello 125")
+      # Set retry to False
       retry <<- FALSE
+      # hide the dialog box initially
       shinyjs::hide("dialog")
+      # Get coount of observations
       ID <<- dbGetQuery(mydb, 'SELECT COUNT(*) FROM dlappDB')
+      # Redirect User to second page once the "go_button" is clicked.
       observeEvent(input$go_button, {
         shinyjs::show("dialog")
         parse_cookie_string(
@@ -179,9 +194,12 @@ Home <- function() {
 
 ##################################################################################################################################################################################
 
+# Second Page
 Continue <- function() {
   page(
     href = "/half",
+    
+    # ui component
     ui <- add_cookie_handlers(
       
       fluidPage(
@@ -303,6 +321,7 @@ Continue <- function() {
       }
     "))
         ),
+        # Add div tags for image, questions (of type selectInput and numericInput), error handling
         img(class = "blob-img",src = "https://hunbalsohail.github.io/media/maaz-blob.png"),
         div(class = "main-container",
             img(class = "bg-img",src = "https://hunbalsohail.github.io/media/maaz-bg.png.jpeg"),
@@ -321,8 +340,6 @@ Continue <- function() {
                                                             "Bachelors", "Masters", "Above Masters")
                             , selected = "Primary School (till Grade 5)"),
             ),
-            # Age,reload,github/paper/https/consent
-            # 
             actionButton("go_button", label = "Continue to Survey", class = "main-button"),
             br(),br(),
             tags$div(id = "dialog", class = "neon-text", "Redirecting to Survey"),
@@ -330,40 +347,52 @@ Continue <- function() {
             tags$div(id = "whole_text", class = "error-text", "Age must be a whole number.")
         )
       )),
+    
+    # server component
     server <- function(input, output, session) {
       
-      print("Hello 12")
+      # Initally hide every tag
       shinyjs::hide(id = "error_text")
       shinyjs::hide(id = 'whole_text')
       shinyjs::hide("dialog")
+      # Get count of observations (neccessary for inserting into DB)
       ID <- dbGetQuery(mydb, 'SELECT COUNT(*) FROM dlappDB')
-      print("1")
       
+      # Make sure when the button is clicked, age is of correct type i.e. non-negative, integer and lies in the range (10 - 120)
       observeEvent(input$go_button, {
-        if (is.na(input$age))
+        
+        # Age question left blank
+        if (is.na(input$age)) 
         {
-          print("GT")
           shinyjs::hide("whole_text")
           shinyjs::show("error_text")
           shinyjs::hide("dialog")
         }
+        # check if age is whole number
         if (as.numeric(input$age) == round(as.numeric(input$age)))
         {
+          # check if age lies in the range
           if (is.numeric(input$age) && input$age >= 10 && input$age <= 120) 
           {
             shinyjs::hide("whole_text")
             shinyjs::hide("error_text")
             shinyjs::show("dialog")
             
-            # if(!is.null(get_cookies()))
+            # If cookie object of user exists i.e. the user is visiting more than once, simply insert the outputs of the question in the DB at row (ID + 1)
+            
             if (!is.null(get_cookie("UserID")))
             {
+              # Get cookie id
               UserID <- get_cookie("UserID")
-              print("User ID: ")
-              print(UserID)
+              
+              # Use value_old variable as a placeholder for the new "COUNT" of the DB
               value_old <<- ID + 1
-              print("value old: ")
-              print(value_old)
+              
+              # Initalize query to send to DB. 
+              # Note: Age, Gender, Education columns were filled with outputs as specified by the user. The rest of the columns have been assigned random values
+              # which will be updated once the rest of the questions in the final page are answered. This way we can filter out people who tend to leave halfway
+              # with the survey (represented by 0.01 DL score)
+              # Note: The column for "cookie_id" has been assigned the UserID variable for identification purposes.
               insert_query <- paste("INSERT into dlappDB values(", as.character(value_old), ", ",
                                     as.character(input$age),
                                     ", \'", input$gender, "\' ",
@@ -378,15 +407,21 @@ Continue <- function() {
                                     as.character(UserID), ", ",
                                     as.character(0.01),
                                     ")", sep="")
-              print(insert_query)
               dbExecute(mydb, insert_query)
-              print(":)")
+              
+              # Redirect User to third page
               server_redirect("/lumsdlapp/survey")
             }  
+            
+            # If no cookie object of the user exists, assign new one based on the latest cookie assignemnt + 1.  The latest assignment is determined by a side-by-side
+            # maintained csv file "cookies.csv". cookies.csv has only one column named "cookie_id" of numeric entries
+            
             else
             {
-              # var <- as.numeric(readLines('text1.txt')[1]) + 1
+              # Read csv file
               df <- read.csv("cookies.csv", stringsAsFactors = FALSE)
+              
+              # Initialize a variable which will hold the latest cookie assignment value + 1
               var <- 0
               if (nrow(df) == 0) {
                 var <- 0
@@ -394,25 +429,21 @@ Continue <- function() {
               else {
                 var <- tail(df, 1)$cookie_id
               }
-              print("var")
-              print(var)
+              
               var <- var + 1
+              
+              # Assign new user their cookie id
               cookies::set_cookie("UserID", var)
-              
-              
-              # writeLines(as.character(var), 'text1.txt')
-              
-              
-              
+                           
+              # Store the new cookie_id in the csv file for continuation of the process
               new_obs <- data.frame(cookie_id = var)
               df <- rbind(df, new_obs)
               
               write.csv(df, "cookies.csv", row.names = FALSE)
               
+              # Again use value old as a placeholder of the observation number, initialize query and execute same as above
               value_old <<- ID + 1
               
-              print("value_old: ")
-              print(value_old)
               insert_query <- paste("INSERT into dlappDB values(", as.character(value_old), ", ",
                                     as.character(input$age),
                                     ", \'", input$gender, "\' ",
@@ -427,25 +458,24 @@ Continue <- function() {
                                     as.character(var), ", ",
                                     as.character(0.01),
                                     ")", sep="")
-              print(insert_query)
               dbExecute(mydb, insert_query)
-              print("6")
+              
+              # Redirect User to third and final page
               server_redirect("/survey")
             }
-            # rstudioapi::jobRunScript(path = "./run_page3.R")
             
           }
+          # Error handling for incorrect age (blank or out of range input)
           else 
           {
             shinyjs::show("error_text")
             shinyjs::hide("dialog")
             shinyjs::hide("whole_text")
-            print("7")
           } 
         }
+        # Error handling for non-integer age
         else
         {
-          print(":RR")
           shinyjs::show("whole_text")
           shinyjs::hide("error_text")
           shinyjs::hide("dialog")
@@ -454,9 +484,12 @@ Continue <- function() {
     })
 }
 
+# Final Page/Survey
 Survey <- function() {
   page(
     href = "/survey",
+    
+    # ui component
     ui <- fluidPage(
       
       useShinyjs(),
@@ -607,14 +640,14 @@ Survey <- function() {
         
       "))
       ),
-      # img(class = "blob-img",src = "https://hunbalsohail.github.io/media/maaz-blob.png"),
+      
+      # Initialize div tags for image, question, consent box, redirecting to home page, error handling
+      
       img(class = "bg-img",src = "https://hunbalsohail.github.io/media/maaz-bg.png.jpeg", width = "600"),
       
       div(class = "main-container",
           h1(class = "main-title", "Finally! Take Our Survey now"),
-          # p(id = "before", "Before, we move on to the survey, please give consent for us to store your information"),
           div(id = "questions", 
-              # p(class = "main-text", "Please enter your following information to the best of your abilities"),
               selectInput("Q4", label = "Are you able to search/google things online?", 
                           choices = list("Yes" = 1, "No" = 0), 
                           selected = 1, width = "450"),
@@ -631,7 +664,6 @@ Survey <- function() {
               
               radioButtons(inputId = "Q10", label = "Torrent", choices = c(1 ,2, 3, 4, 5), selected = 1, inline = T),
               
-              # actionButton("submitbutton", "Submit", class = "btn btn-primary"),
               div(id = "check", checkboxInput("consent", "I give consent to store my information")),
               actionButton("go_button", label = "Score", class = "main-button"),
               br(),br(),
@@ -640,12 +672,6 @@ Survey <- function() {
               tags$div(id = "error_text", class = "error-text", "Please give consent to store your information"),
               actionButton("home_button", label = "Go to Home Page", class = "main-button"),
               tags$div(id = "retry", class = "neon-text", "Please go to home page to retry"),
-              
-              textOutput("text1"),
-              textOutput("text2"),
-              textOutput("text3"),
-              textOutput("text4"),
-              textOutput("text5")
           )
           
       )
@@ -653,32 +679,38 @@ Survey <- function() {
     
     server <- function(input, output, session) {
       
-      print("8")
+      # Display Questions and hide error messages
       shinyjs::show(id = "dialog")
       shinyjs::show(id = "questions")
       shinyjs::show(id = 'check')
       shinyjs::hide(id = "home_page")
       shinyjs::hide(id = "retry")
       shinyjs::hide(id = 'error_text')
+      
+      # If user opts to go to home-page without filling the survey, do so
       observeEvent(input$home_button, {
         shinyjs::show("home_page")
         
         shinyjs::hide(id = 'retry')
         shinyjs::hide(id = 'dialog')
-        print("189")
         server_redirect("/lumsdlapp/")
       })
+      # User has clicked the "Score" button
       observeEvent(input$go_button, {
+        # Observe if the user has already filled the survey and recieved their score. If yes, show corresponding error and advise to move to homepage for retry
+        # purposes. Done to avoid spamming
         if (retry == TRUE)
         {
           shinyjs::show(id = 'retry')
           shinyjs::hide(id = 'dialog')
-          # print("11")
         }
+        # Observe if the user has given consent to store their information. If not, display corresponding error message and do not return the DL score
         else if (input$consent) 
         {
           shinyjs::hide(id = 'error_text')
           
+          # Create a reactive cell designed to create a dataframe with the appropriate columns, filled with entries from the survey. The dataframe is then 
+          # used by the model for prediction which is then 
           datasetInput <- reactive({
             
             df <- data.frame(
@@ -693,74 +725,62 @@ Survey <- function() {
                                      input$Q10)))
             
             input <- transpose(df)
-            write.table(input,"input.csv", sep=",", quote = FALSE, row.names = FALSE, col.names = FALSE)
             
             test <- read.csv(paste("input", ".csv", sep=""), header = TRUE)
             
             Output <- data.frame(Prediction = predict(model,test))
             df['DL_Score'] <- Output
-            # print(Output)
             
           })
-          print("$%^")
           
+          # Use the placeholder to update the values in place of the dummies set in second page
           UserID <- value_old
-          
-          print("Null DL score")
-          print(UserID)
-          
+                    
           update_pdf_query <- paste("UPDATE dlappDB SET term_pdf =  ", as.character(input$Q7), " WHERE UserID =  ", as.character(UserID), 
                                     sep = "")
-          #print(update_query)
           dbExecute(mydb, update_pdf_query)
           
           update_term_internet_query <- paste("UPDATE dlappDB SET term_internet =  ", as.character(input$Q5), " WHERE UserID =  ", as.character(UserID), 
                                               sep = "")
-          #print(update_query)
           dbExecute(mydb, update_term_internet_query)
           
           update_term_browser_query <- paste("UPDATE dlappDB SET term_browser =  ", as.character(input$Q6), " WHERE UserID =  ", as.character(UserID), 
                                              sep = "")
-          #print(update_query)
           dbExecute(mydb, update_term_browser_query)
           
           update_term_bookmark_query <- paste("UPDATE dlappDB SET term_bookmark =  ", as.character(input$Q8), " WHERE UserID =  ", as.character(UserID), 
                                               sep = "")
-          #print(update_query)
           dbExecute(mydb, update_term_bookmark_query)
           
           update_term_url_query <- paste("UPDATE dlappDB SET term_url =  ", as.character(input$Q9), " WHERE UserID =  ", as.character(UserID),
                                          sep = "")
-          #print(update_query)
           dbExecute(mydb, update_term_url_query)
           
           update_search_query <- paste("UPDATE dlappDB SET search =  ", as.character(input$Q4), " WHERE UserID =  ", as.character(UserID), 
                                        sep = "")
-          #print(update_query)
           dbExecute(mydb, update_search_query)
           
           update_term_torrent_query <- paste("UPDATE dlappDB SET term_torrent =  ", as.character(input$Q10), " WHERE UserID =  ", as.character(UserID), 
                                              sep = "")
-          #print(update_query)
           dbExecute(mydb, update_term_torrent_query)
           
           update_DL_query <- paste("UPDATE dlappDB SET Dl_Score =  ", as.character(datasetInput()$Prediction[1]), " WHERE UserID =  ", as.character(UserID), 
                                    sep = "")
-          #print(update_query)
           dbExecute(mydb, update_DL_query)
           
           score <- round(datasetInput()$Prediction[1], 3)
           
+          # Set up notification/pop-up message to display score
           shinyalert("Your Score: ", score, animation = 'slide-from-top', className = 'Score-box', 
                      confirmButtonText = 'Close')
-          print("14")
-          
+        
+          # Set retry to TRUE to avoid spamming
           retry <<- TRUE
         }
+        # Error Handling for no conset provided
         else
         {
           shinyjs::show('error_text')
-          print("18")
         }
         
       })
