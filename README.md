@@ -40,7 +40,7 @@ cd /srv/shiny-server/lumsdlapp
 ```
 The folder `lumsdlapp` contains the following:
 
-- `R` \xrightarrow contains the neccessay dependancies for the app
+- `R` &rarr contains the neccessay dependancies for the app
 - `cookies.csv` \rightarrow Monitors the cookie assignment of unique users (see **app.R** for more details)
 - `dlappDB` \rightarrow The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
   - *UserID* (Primary Key)
@@ -51,7 +51,7 @@ The folder `lumsdlapp` contains the following:
   - *term_browser* (Responses $\in$ [1, 5])
   - *term_bookmark* (Responses $\in$ [1, 5])
   - *term_url* (Responses $\in$ [1, 5])
-  - *search* (Responses $\in$ {Yes(1), No(0)})
+  - *search* (Responses can either by Yes(1) ir No(0))
   - *term_torrent* (Responses $\in$ [1, 5])
   - *cookie_id* \rightarrow keeps track of unique visitors
   - *DL_Score* (Responses $\in$ (0, 1))
