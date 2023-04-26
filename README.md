@@ -45,4 +45,6 @@ cd /srv/shiny-server/lumsdlapp
 ```
 The folder `lumsdlapp` contains the following:
 
-- 
+- `R` \rightarrow contains the neccessay dependancies for the app
+- `cookies.csv` \rightarrow Monitors the cookie assignment of unique users (see **app.R** for more details)
+- `dlappDB` \rightarrow
