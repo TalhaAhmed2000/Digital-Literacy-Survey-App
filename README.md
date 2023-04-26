@@ -30,15 +30,10 @@ This app is hopefully the first of the many steps we will be taking to imporving
 - A more interactive interface such as allowing user to see the history of their past attempts (if any). 
 - Shiny Apps are generally optimized for 1-page web apps so we had to use the "brochure" API (see details: https://github.com/ColinFay/brochure/blob/main/README.md) for navigating back and forth between the webpages. Hence, transferring this to some other popular and efficient web frameworks like JavaScript or MERN stack would be highly appreciated and helpful. But some work might need to be done before for transferring the Random Forest Model from R to a new language.
 
-## Server Credentials
-- IP Address: 110.93.235.130
-- ssh port: 22433
-- user: dlapp
-- passoword: lumsdlapp321
 
 ## Location in the server
 
-From the root, to access the main folder visit:
+Once you have set up *shiny server (visit https://posit.co/products/open-source/shinyserver/)*, from the root, to access the main folder visit:
 
 ```
 cd /srv/shiny-server/lumsdlapp
@@ -47,4 +42,16 @@ The folder `lumsdlapp` contains the following:
 
 - `R` \rightarrow contains the neccessay dependancies for the app
 - `cookies.csv` \rightarrow Monitors the cookie assignment of unique users (see **app.R** for more details)
-- `dlappDB` \rightarrow
+- `dlappDB` \rightarrow The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
+  - *UserID* (Primary Key)
+  - *Gender* (Responses $\in [Male, Female, Other]$)
+  - *Education_Level* (Responses $\in [Primary School (till Grade 5), Secondary School (from Grade 6 to 12), Matric, Intermediate, Bachelors, Masters, Above Masters]$)
+  - *term_pdf* (Responses $\in [1, 5]$)
+  - *term_internet* (Responses $\in [1, 5]$)
+  - *term_browser* (Responses $\in [1, 5]$)
+  - *term_bookmark* (Responses $\in [1, 5]$)
+  - *term_url* (Responses $\in [1, 5]$)
+  - *search* (Responses $\in [Yes(1), No(0)]$)
+  - *term_torrent* (Responses $\in [1, 5]$)
+  - *cookie_id* \rightarrow keeps track of unique visitors
+  - *DL_Score* (Responses $\in (0, 1)$)
