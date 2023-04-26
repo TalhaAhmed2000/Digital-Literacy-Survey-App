@@ -40,11 +40,11 @@ sudo nano /etc/shiny-server/shiny-server.conf
 ```
 ![Code_cdJ7IY1htO](https://user-images.githubusercontent.com/122668359/234613218-757f00a4-ee52-46dc-ae68-e03443582316.png)
 
-Except from the *listen - port_number* option, the rest is pretty much default. This shows that the folder directory `/srv/shiny-server/` will have the shiny app and the logs of the shiny app will be stored in the directory `var/log/shiny-server
+Except from the *listen - port_number* option, the rest is pretty much default. This shows that the folder directory `/srv/shiny-server/` will have the shiny app and the logs of the shiny app will be stored in the directory `var/log/shiny-server`. The `directory_index on;` option simply specifies the `index.html` file to be rendered if the user visits the base URL.
 
 ## Location in the server
 
-From the root, to access the main folder visit:
+As seen from the configuration file, from the root, to access the main folder visit:
 ```
 cd /srv/shiny-server/lumsdlapp
 ```
