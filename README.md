@@ -11,7 +11,7 @@ Q1) Are you able to search/google things online? (Yes or No)
 
 How familiar are you with the following computer and Internet-related items? Please choose a number between 1 and 5, where 1 represents no understanding and 5 represents full understanding of the item:
 
-Q2) Internet \\
+Q2) Internet \n
 Q3) Browser \\
 Q4) PDF \\
 Q5) BookMark \\
