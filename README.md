@@ -42,7 +42,18 @@ The folder `lumsdlapp` contains the following:
 
 - `R` &#8594; contains the neccessay dependancies for the app
 - `cookies.csv` &#8594; Monitors the cookie assignment of unique users (see **app.R** for more details)
-- `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
+- `script.sql` &#8594; Contains the sql script from which the DB reads from
+- `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. 
+
+To create a SQlite DB (assuming you have already installed it) and make it read from a sql script, run the following command on the terminal
+```
+# Create DB
+sqlite3 dlappDB.db
+# Read from script
+.read script.sql
+```
+
+The coloumns for the DB are as follows:
   - *UserID* (Primary Key)
   - *Gender* (Responses $\in$ [Male, Female, Other])
   - *Education_Level* (Responses $\in$ [Primary School (till Grade 5), Secondary School (from Grade 6 to 12), Matric, Intermediate, Bachelors, Masters, Above Masters])
