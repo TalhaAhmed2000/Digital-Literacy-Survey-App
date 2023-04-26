@@ -1,5 +1,5 @@
 # Digital-Literacy-Survey-App
-This app was designed by Junior students from LUMS School of Science and Engineering. Dr.Ihsan Ayub Qazi (Associate CS Professor) played an important role in guiding the students in this venture. Dr.Ihsan Ayub Qazi, Dr.Agha Ali Raza (Assitant CS Professor), Dr.Ayesha Ali (Assiant Economics Professor) have played an immense role in making this possible. For more details of their research paper and github repository visit:
+This app was designed by Junior undergraduate students from LUMS School of Science and Engineering. Dr.Ihsan Ayub Qazi (Associate CS Professor) played an important role in guiding the students in this venture. Dr.Ihsan Ayub Qazi, Dr.Agha Ali Raza (Assitant CS Professor), Dr.Ayesha Ali (Assiant Economics Professor) have played an immense role in making this possible. For more details of their research paper and github repository visit:
 
 - Research Paper: https://www.dropbox.com/s/n3lg5cs1pq7sqtq/RR_DevEng_Digital_Literacy_Measures_Paper_2022.pdf?dl=0
 - Github: https://github.com/nsgLUMS/predict_DigitalLiteracy
@@ -11,12 +11,12 @@ Q1) Are you able to search/google things online? (Yes or No)
 
 How familiar are you with the following computer and Internet-related items? Please choose a number between 1 and 5, where 1 represents no understanding and 5 represents full understanding of the item:
 
-Q2) Internet \n
-Q3) Browser \\
-Q4) PDF \\
-Q5) BookMark \\
-Q6) URL \\
-Q7) Torrent \\
+Q2) Internet                                                                                                                               
+Q3) Browser
+Q4) PDF 
+Q5) BookMark 
+Q6) URL 
+Q7) Torrent 
 
 For more details on why these combination of questions, refer to the research paper and on how to use the model developed, refer to the github
 
