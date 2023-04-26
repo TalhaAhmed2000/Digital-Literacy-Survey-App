@@ -92,7 +92,7 @@ sudo systemctl status shiny-server
 ```
 ![Code_MPipjdsyMa](https://user-images.githubusercontent.com/122668359/234616014-010cdddc-8607-4ac3-95f5-4ccb871dd463.png)
 
-If you see the word `active` in bold then that means the server is listening on the specified port number. Consequently if you see `inactive` in bold, it means the opposite and troubleshooting is required.
+If you see the word `active` in bold then that means the server is listening on the specified port number. On the other hand `inactive` in bold, would mean the opposite and troubleshooting is required.
 
 
 
