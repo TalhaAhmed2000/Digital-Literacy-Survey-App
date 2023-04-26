@@ -79,3 +79,21 @@ The coloumns for the DB are as follows:
   - *DL_Score* (Responses $\in$ (0, 1))
 
 - `rf_model.rds` &#8594; Contains the Random Forest model. On more information on how to use it visit https://github.com/nsgLUMS/predict_DigitalLiteracy/blob/main/DL_model.rmd
+
+## Starting Shiny Server
+Once we have the shiny server configuration file ready and the app ready, it's time to make the server at the given port to host it live. To do this run the following command on the terminal. The code also shows how to check the *status* of the server i.e. whether the server is listening on the port or not. Its sample output is shown.
+
+```
+# To restart/start/stop the server
+sudo systemctl restart/start/stop shiny-server
+
+# To check the status
+sudo systemctl status shiny-server
+```
+![Code_MPipjdsyMa](https://user-images.githubusercontent.com/122668359/234616014-010cdddc-8607-4ac3-95f5-4ccb871dd463.png)
+
+If you see the word `active` in bold then that means the server is listening on the specified port number. Consequently if you see `inactive` in bold, it means the opposite and troubleshooting is required.
+
+
+
+
