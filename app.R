@@ -20,7 +20,6 @@ library(brochure)
 # Initialize some variables that will come in handy later
 
 retry <- FALSE
-value_new <- 0
 value_old <- 0
 
 # Read model (For more details refer to https://github.com/nsgLUMS/predict_DigitalLiteracy)
