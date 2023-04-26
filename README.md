@@ -30,10 +30,19 @@ This app is hopefully the first of the many steps we will be taking to imporving
 - A more interactive interface such as allowing user to see the history of their past attempts (if any). 
 - Shiny Apps are generally optimized for 1-page web apps so we had to use the "brochure" API (see details: https://github.com/ColinFay/brochure/blob/main/README.md) for navigating back and forth between the webpages. Hence, transferring this to some other popular and efficient web frameworks like JavaScript or MERN stack would be highly appreciated and helpful. But some work might need to be done before for transferring the Random Forest Model from R to a new language.
 
+## Setting Up Shiny-server
 
+Once you have installed *shiny server (visit https://posit.co/products/open-source/shinyserver/)*, we have to set up the configuration file. The following shows the command and a sample output
+
+```
+# Access the configuration file in the etc/shiny-server directory
+sudo nano /etc/shiny-server/shiny-server.conf
+
+```
 ## Location in the server
 
-Once you have set up *shiny server (visit https://posit.co/products/open-source/shinyserver/)*, from the root, to access the main folder visit:
+From the root, to access the main folder visit:
+![Code_gKnr6UMqK3](https://user-images.githubusercontent.com/122668359/234612836-f1bd111d-8d74-4a52-8968-a446955921b3.png)
 
 ```
 cd /srv/shiny-server/lumsdlapp
@@ -49,6 +58,7 @@ To create a SQlite DB (assuming you have already installed it) and make it read 
 ```
 # Create DB
 sqlite3 dlappDB.db
+
 # Read from script
 .read script.sql
 ```
@@ -66,3 +76,5 @@ The coloumns for the DB are as follows:
   - *term_torrent* (Responses $\in$ [1, 5])
   - *cookie_id* \rightarrow keeps track of unique visitors
   - *DL_Score* (Responses $\in$ (0, 1))
+
+- `rf_model.rds` &#8594; Contains the Random Forest model. On more information on how to use it visit https://github.com/nsgLUMS/predict_DigitalLiteracy/blob/main/DL_model.rmd
