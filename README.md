@@ -54,6 +54,7 @@ The folder `lumsdlapp` contains the following:
 - `app.R` &#8594; contains the R-code for the shiny app. Any changes to the app can be done through here and would dynamically render if the app is deployed live.
 - `cookies.csv` &#8594; Monitors the cookie assignment of unique users (see **app.R** for more details)
 - `script.sql` &#8594; Contains the sql script from which the DB reads from
+- `rf_model.rds` &#8594; Contains the Random Forest model. On more information on how to use it visit https://github.com/nsgLUMS/predict_DigitalLiteracy/blob/main/DL_model.rmd
 - `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. 
 
 To create a SQlite DB (assuming you have already installed it) and make it read from a sql script, run the following command on the terminal
@@ -78,8 +79,6 @@ The coloumns for the DB are as follows:
   - *term_torrent* (Responses $\in$ [1, 5])
   - *cookie_id* \rightarrow keeps track of unique visitors
   - *DL_Score* (Responses $\in$ (0, 1))
-
-- `rf_model.rds` &#8594; Contains the Random Forest model. On more information on how to use it visit https://github.com/nsgLUMS/predict_DigitalLiteracy/blob/main/DL_model.rmd
 
 ## Starting Shiny Server
 Once we have the shiny server configuration file ready and the app ready, it's time to make the server at the given port to host it live. To do this run the following command on the terminal. The code also shows how to check the *status* of the server i.e. whether the server is listening on the port or not. Its sample output is shown.
