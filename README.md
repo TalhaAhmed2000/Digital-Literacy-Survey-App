@@ -38,5 +38,8 @@ This app is hopefully the first of the many steps we will be taking to imporving
 
 ## Location in the server
 
-From the root, visit `cd /srv/shiny-server/lumsdlapp` for the main folder. The folder contains the following:
-- 
+From the root, visit:
+
+```
+gg
+```
