@@ -41,8 +41,8 @@ cd /srv/shiny-server/lumsdlapp
 The folder `lumsdlapp` contains the following:
 
 - `R` &#8594; contains the neccessay dependancies for the app
-- `cookies.csv` \rightarrow Monitors the cookie assignment of unique users (see **app.R** for more details)
-- `dlappDB` \rightarrow The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
+- `cookies.csv` &#8594; Monitors the cookie assignment of unique users (see **app.R** for more details)
+- `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. It's columns are as follows:
   - *UserID* (Primary Key)
   - *Gender* (Responses $\in$ [Male, Female, Other])
   - *Education_Level* (Responses $\in$ [Primary School (till Grade 5), Secondary School (from Grade 6 to 12), Matric, Intermediate, Bachelors, Masters, Above Masters])
