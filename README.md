@@ -18,7 +18,7 @@ How familiar are you with the following computer and Internet-related items? Ple
 - URL 
 - Torrent 
 
-For more details on why these combination of questions, refer to the research paper and on how to use the model developed, refer to the github
+For more details on why these combination of questions, please refer to the research paper and on how to use the model developed, refer to the github
 
 ## Why Digital Literacy?
 In Pakistan more than 50% of the population is below the poverty line and consequently have no access to education or even the basic "Internet" tools like searching up on Google or bookmarking tabs etc. Thus, from a policy intervention perspective, having a clear idea of the seriousness of the issue by quantifying a metric developed in the research paper, really goes a long way to improving the situation in Pakistan by providing and spending resources in areas most needed. 
