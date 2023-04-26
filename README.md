@@ -30,4 +30,10 @@ This app is hopefully the first of the many steps we will be taking to imporving
 - A more interactive interface such as allowing user to see the history of their past attempts (if any). 
 - Shiny Apps are generally optimized for 1-page web apps so we had to use the "brochure" API (see details: https://github.com/ColinFay/brochure/blob/main/README.md) for navigating back and forth between the webpages. Hence, transferring this to some other popular and efficient web frameworks like JavaScript or MERN stack would be highly appreciated and helpful. But some work might need to be done before for transferring the Random Forest Model from R to a new language.
 
+## Server Credentials
+- IP Address: 110.93.235.130
+- ssh port: 22433
+- user: dlapp
+- passoword: lumsdlapp321
+
 ## Location in the server
