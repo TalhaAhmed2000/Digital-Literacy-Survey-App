@@ -1,5 +1,5 @@
 # Digital-Literacy-Survey-App
-This app was designed by Junior undergraduate students from LUMS School of Science and Engineering. Dr.Ihsan Ayub Qazi (Associate CS Professor) played an important role in guiding the students in this venture. Dr.Ihsan Ayub Qazi, Dr.Agha Ali Raza (Assitant CS Professor), Dr.Ayesha Ali (Assiant Economics Professor) have played an immense role in making this possible. For more details of their research paper and github repository visit:
+This app is an extension of the fruits of the research done by Dr.Ihsan Ayub Qazi (Associate CS Professor), Dr.Agha Ali Raza (Assistant CS Professor), Dr.Ayesha Ali (Assistant Economics Professor). For more details of their research paper and github repository visit:
 
 - Research Paper: https://www.dropbox.com/s/n3lg5cs1pq7sqtq/RR_DevEng_Digital_Literacy_Measures_Paper_2022.pdf?dl=0
 - Github: https://github.com/nsgLUMS/predict_DigitalLiteracy
@@ -29,6 +29,8 @@ This app is hopefully the first of the many steps we will be taking to imporving
 - Having an interactive dashboard once the user is done filling the survey. The dashboard can show his/her percentile among all the participants and some basic statistics like mean, median etc. 
 - A more interactive interface such as allowing user to see the history of their past attempts (if any). 
 - Shiny Apps are generally optimized for 1-page web apps so we had to use the "brochure" API (see details: https://github.com/ColinFay/brochure/blob/main/README.md) for navigating back and forth between the webpages. Hence, transferring this to some other popular and efficient web frameworks like JavaScript or MERN stack would be highly appreciated and helpful. But some work might need to be done before for transferring the Random Forest Model from R to a new language.
+
+To share feedback regarding any additions to the app, email at ...
 
 ## Setting Up Shiny-server
 
