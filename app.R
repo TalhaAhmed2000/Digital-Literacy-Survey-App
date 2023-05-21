@@ -360,8 +360,17 @@ Continue <- function() {
       # Make sure when the button is clicked, age is of correct type i.e. non-negative, integer and lies in the range (10 - 120)
       observeEvent(input$go_button, {
         
+        # For checking if the cookie for the user exists or not
+        
+        cookieExists <- FALSE
+        tryCatch({
+          cookieExists <- !is.null(get_cookie("UserID"))
+        }, error = function(e) {
+          cookieExists <- FALSE
+        }
+        
         # Age question left blank
-        if (is.na(input$age)) 
+        if (is.null(input$age)) 
         {
           shinyjs::hide("whole_text")
           shinyjs::show("error_text")
@@ -417,30 +426,18 @@ Continue <- function() {
             
             else
             {
-              # Read csv file
-              df <- read.csv("cookies.csv", stringsAsFactors = FALSE)
-              
-              # Initialize a variable which will hold the latest cookie assignment value + 1
-              var <- 0
-              if (nrow(df) == 0) {
-                var <- 0
-              }
-              else {
-                var <- tail(df, 1)$cookie_id
-              }
-              
-              var <- var + 1
+            
+              # For cookie assignment we choose a random number (integer) from 1 and 2 million inclusive
+            
+              value_old <<- ID + 1
+              lower <- 1
+              upper <- 2 * (10**6)
+              var <- floor(runif(1, min = lower, max = upper))
               
               # Assign new user their cookie id
               cookies::set_cookie("UserID", var)
-                           
-              # Store the new cookie_id in the csv file for continuation of the process
-              new_obs <- data.frame(cookie_id = var)
-              df <- rbind(df, new_obs)
               
-              write.csv(df, "cookies.csv", row.names = FALSE)
-              
-              # Again use value old as a placeholder of the observation number, initialize query and execute same as above
+              # Again use value_old as a placeholder of the observation number, initialize query and execute same as above
               value_old <<- ID + 1
               
               insert_query <- paste("INSERT into dlappDB values(", as.character(value_old), ", ",
@@ -460,7 +457,7 @@ Continue <- function() {
               dbExecute(mydb, insert_query)
               
               # Redirect User to third and final page
-              server_redirect("/survey")
+              server_redirect("lumsdlapp/survey")
             }
             
           }
