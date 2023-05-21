@@ -33,7 +33,7 @@ This app is hopefully the first of the many steps to imporving the digital liter
 - A more interactive interface such as allowing user to see the history of their past attempts (if any). 
 - Shiny Apps are generally optimized for 1-page web apps so we had to use the "brochure" API (see details: https://github.com/ColinFay/brochure/blob/main/README.md) for navigating back and forth between the webpages. Hence, transferring this to some other popular and efficient web frameworks like JavaScript or MERN stack would be highly appreciated and helpful. But some work might need to be done before for transferring the Random Forest Model from R to a new language.
 
-To share feedback regarding any additions to the app, email at (add email here)
+To share feedback regarding any additions to the app, email at (lumsdlapp2000@gmail.com)
 
 ## Setting Up Shiny-server
 
