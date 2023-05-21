@@ -18,7 +18,7 @@ How familiar are you with the following computer and Internet-related items? Ple
 - URL 
 - Torrent 
 
-For more details on why these combination of questions, please refer to the research paper and on how to use the model developed, refer to the github
+For more details on why these combination of questions were chosen and how to use the model, please refer to the research paper and github respectively.
 
 ## Why Digital Literacy?
 Digital technologies can play an important role in alleviating poverty and inequality by enabling access to economic opportunities (Jack and Suri 2014; Chun and Tang 2018; Hjort and Tian 2021). However, 43% of the developing world’s population or nearly 3 billion people, remain offline. This is despite the fact that 94% of the developing countries populations is covered by at least a 3G cellular network. One major barrier to closing the digital divide is the lack of digital literacy (Dimaggioet al. 2004; Zillien and Hargittai 2009; Rains and Tsetsi 2017; Hargittai and Micheli 2019). Digital literacy—defined as the ability to access and effectively find information online (Hargittai 2005; Gilster 1997) is the most often cited reason for why individuals are held back from taking up the Internet (World Bank 2021).
@@ -57,7 +57,6 @@ The folder `lumsdlapp` contains the following:
 
 - `R` &#8594; contains the neccessay dependancies for the app
 - `app.R` &#8594; contains the R-code for the shiny app. Any changes to the app can be done through here and would dynamically render if the app is deployed live.
-- `cookies.csv` &#8594; Monitors the cookie assignment of unique users (see **app.R** for more details)
 - `script.sql` &#8594; Contains the sql script from which the DB reads from
 - `rf_model.rds` &#8594; Contains the Random Forest model. On more information on how to use it visit https://github.com/nsgLUMS/predict_DigitalLiteracy/blob/main/DL_model.rmd
 - `dlappDB` &#8594; The database connected to SQlite script `script.sql` stores the responses. 
