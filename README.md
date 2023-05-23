@@ -1,5 +1,5 @@
 # Digital-Literacy-Survey-App
-This app is an extension of the research done by Dr.Ihsan Ayub Qazi (LUMS Associate CS Professor), Dr.Agha Ali Raza (LUMS Assistant CS Professor), Dr.Ayesha Ali (LUMS Assistant Economics Professor). For more details of their research paper and github repository visit:
+This app (accessible at bytes.lums.edu.pk:443/lumsdlapp) is an extension of the research done by Dr.Ihsan Ayub Qazi (LUMS Associate CS Professor), Dr.Agha Ali Raza (LUMS Assistant CS Professor), Dr.Ayesha Ali (LUMS Assistant Economics Professor). For more details of their research paper and github repository visit:
 
 - Research Paper: https://www.dropbox.com/s/n3lg5cs1pq7sqtq/RR_DevEng_Digital_Literacy_Measures_Paper_2022.pdf?dl=0
 - Github: https://github.com/nsgLUMS/predict_DigitalLiteracy
